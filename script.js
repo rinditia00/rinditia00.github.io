@@ -2,10 +2,9 @@
 function fetchBitcoinPrice() {
     const bitcoinPriceElement = document.getElementById('bitcoin-price');
     
-    // Make an AJAX request to the Binance API
+    // Make an AJAX request to the Binance public API for Bitcoin price
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT', true);
-    xhr.setRequestHeader('X-MBX-APIKEY', 'YOUR_API_KEY'); // Replace with your Binance API key
     
     xhr.onload = function() {
         if (xhr.status === 200) {
