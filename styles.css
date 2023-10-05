@@ -7,12 +7,14 @@
 }
 
 /* Style the table */
+/* Style the table with a light background */
+
 .crypto-table {
     width: 60%;
     margin: 0 auto;
     border-collapse: collapse;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for a card effect */
-    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Add a subtle box shadow for a card effect */
+    background-color: #f9f9d9;
 }
 
 /* Style table headers */
