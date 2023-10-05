@@ -1,13 +1,13 @@
 // Function to fetch and update cryptocurrency prices from Binance
 function fetchCryptoPrices() {
-    const coins = ['btc', 'ltc', 'eth', 'xrp', 'ada', 'sui', 'wld', 'matic'];
+    const coins = ['BTC', 'LTC', 'ETH', 'XRP', 'ADA', 'SUI', 'WLD', 'MATIC'];
 
     coins.forEach(coin => {
         const coinElement = document.getElementById(`${coin}-price`);
         
         // Make an AJAX request to the Binance public API for coin price
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', `https://api.binance.com/api/v3/ticker/price?symbol=${coin}usdt`, true);
+        xhr.open('GET', `https://api.binance.com/api/v3/ticker/price?symbol=${coin}USDT`, true);
         
         xhr.onload = function() {
             if (xhr.status === 200) {
