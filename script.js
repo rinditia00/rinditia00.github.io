@@ -1,3 +1,12 @@
+// Function to format cryptocurrency prices
+function formatPrice(price) {
+    if (price < 10) {
+        return price.toFixed(5); // Format with 5 decimal places
+    } else {
+        return price.toFixed(3); // Format with 2 decimal places for prices >= 10
+    }
+}
+
 // Function to fetch and update cryptocurrency prices from Binance
 function fetchCryptoPrices() {
     const coins = ['BTC', 'LTC', 'ETH', 'XRP', 'ADA', 'SUI', 'WLD', 'MATIC'];
@@ -12,10 +21,13 @@ function fetchCryptoPrices() {
         xhr.onload = function() {
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
-                const coinPrice = parseFloat(response.price).toFixed(2); // Extract coin price
+                const coinPrice = parseFloat(response.price); // Extract coin price
+                
+                // Format the price with 5 decimal places if it's less than 10
+                const formattedPrice = formatPrice(coinPrice);
                 
                 // Update the HTML element with the new price
-                coinElement.textContent = `$${coinPrice}`;
+                coinElement.textContent = `$${formattedPrice}`;
                 
                 // Check if the price went up, down, or stayed the same
                 const prevCoinPrice = parseFloat(coinElement.getAttribute('data-prev-price'));
