@@ -1,0 +1,22 @@
+.title {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.crypto-table {
+    width: 50%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.crypto-table th, .crypto-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.price {
+    font-size: 18px;
+}
