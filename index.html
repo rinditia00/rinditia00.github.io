@@ -1,24 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Real-Time Bitcoin Price (Binance)</title>
+    <title>Crypto Price Tracker</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <h1 class="title">Bitcoin Price (Binance):</h1>
-    <p id="bitcoin-price" classstyles.css):
-```css
-.title {
-    font-size: 24px; /* Set the font size for the title */
-    color: #333; /* Optional: Set the text color for the title */
-}
-
-.price {
-    font-size: 24px; /* Set the same font size for the Bitcoin price */
-}
-
-    <p id="bitcoin-price">$0.00</p>
-    
+    <h1 class="title">Crypto Price Tracker (Binance)</h1>
+    <table class="crypto-table">
+        <tr>
+            <th>Coin</th>
+            <th>Price (USDT)</th>
+        </tr>
+        <tr id="btc-row">
+            <td>Bitcoin (BTC)</td>
+            <td class="price" id="btc-price">$0.00</td>
+        </tr>
+        <tr id="ltc-row">
+            <td>Litecoin (LTC)</td>
+            <td class="price" id="ltc-price">$0.00</td>
+        </tr>
+        <tr id="eth-row">
+            <td>Ethereum (ETH)</td>
+            <td class="price" id="eth-price">$0.00</td>
+        </tr>
+        <tr id="xrp-row">
+            <td>Ripple (XRP)</td>
+            <td class="price" id="xrp-price">$0.00</td>
+        </tr>
+        <tr id="ada-row">
+            <td>Cardano (ADA)</td>
+            <td class="price" id="ada-price">$0.00</td>
+        </tr>
+        <tr id="sui-row">
+            <td>Suicide Ventures (SUI)</td>
+            <td class="price" id="sui-price">$0.00</td>
+        </tr>
+        <tr id="wld-row">
+            <td>Wild Token (WLD)</td>
+            <td class="price" id="wld-price">$0.00</td>
+        </tr>
+        <tr id="matic-row">
+            <td>Polygon (MATIC)</td>
+            <td class="price" id="matic-price">$0.00</td>
+        </tr>
+    </table>
     <script src="script.js"></script>
 </body>
 </html>
