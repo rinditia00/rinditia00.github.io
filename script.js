@@ -9,10 +9,31 @@ function fetchBitcoinPrice() {
     xhr.onload = function() {
         if (xhr.status === 200) {
             const response = JSON.parse(xhr.responseText);
-            const bitcoinPrice = parseFloat(response.price).toFixed(2); // Extract Bitcoin price
+            const newBitcoinPrice = parseFloat(response.price);
+            
+            // Get the previous Bitcoin price stored in a data attribute
+            const prevBitcoinPrice = parseFloat(bitcoinPriceElement.getAttribute('data-prev-price'));
+            
+            // Update the data attribute with the new price
+            bitcoinPriceElement.setAttribute('data-prev-price', newBitcoinPrice);
             
             // Update the HTML element with the new price
-            bitcoinPriceElement.textContent = `$${bitcoinPrice}`;
+            bitcoinPriceElement.textContent = `$${newBitcoinPrice.toFixed(2)}`;
+            
+            // Check if the price went up, down, or stayed the same
+            if (newBitcoinPrice > prevBitcoinPrice) {
+                // Price went up, blink green
+                bitcoinPriceElement.style.color = 'green';
+                setTimeout(() => {
+                    bitcoinPriceElement.style.color = 'black'; // Return to black
+                }, 1000); // Blink for 1 second
+            } else if (newBitcoinPrice < prevBitcoinPrice) {
+                // Price went down, blink red
+                bitcoinPriceElement.style.color = 'red';
+                setTimeout(() => {
+                    bitcoinPriceElement.style.color = 'black'; // Return to black
+                }, 1000); // Blink for 1 second
+            }
         }
     };
     
