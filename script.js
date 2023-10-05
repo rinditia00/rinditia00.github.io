@@ -1,13 +1,6 @@
-// Function to format cryptocurrency prices
-function formatPrice(price) {
-    if (price < 10) {
-        return price.toFixed(5); // Format with 5 decimal places
-    } else {
-        return price.toFixed(3); // Format with 2 decimal places for prices >= 10
-    }
-}
-
 // Function to fetch and update cryptocurrency prices from Binance
+let consecutiveNoChangeCount = 0; // Initialize a count for consecutive no changes
+
 function fetchCryptoPrices() {
     const coins = ['BTC', 'LTC', 'ETH', 'XRP', 'ADA', 'SUI', 'WLD', 'MATIC'];
 
@@ -23,26 +16,18 @@ function fetchCryptoPrices() {
                 const response = JSON.parse(xhr.responseText);
                 const coinPrice = parseFloat(response.price); // Extract coin price
                 
-                // Format the price with 5 decimal places if it's less than 10
-                const formattedPrice = formatPrice(coinPrice);
-                
-                // Update the HTML element with the new price
-                coinElement.textContent = `$${formattedPrice}`;
-                
-                // Check if the price went up, down, or stayed the same
+                // Check if the price has changed
                 const prevCoinPrice = parseFloat(coinElement.getAttribute('data-prev-price'));
-                if (!isNaN(prevCoinPrice) && coinPrice > prevCoinPrice) {
-                    // Price went up, blink green
-                    coinElement.style.color = 'green';
-                    setTimeout(() => {
-                        coinElement.style.color = 'black'; // Return to black
-                    }, 1000); // Blink for 1 second
-                } else if (!isNaN(prevCoinPrice) && coinPrice < prevCoinPrice) {
-                    // Price went down, blink red
-                    coinElement.style.color = 'red';
-                    setTimeout(() => {
-                        coinElement.style.color = 'black'; // Return to black
-                    }, 1000); // Blink for 1 second
+                if (!isNaN(prevCoinPrice) && coinPrice !== prevCoinPrice) {
+                    // Price has changed, update the HTML element and reset consecutiveNoChangeCount
+                    const formattedPrice = coinPrice < 10 ? coinPrice.toFixed(5) : coinPrice.toFixed(2);
+                    coinElement.textContent = `$${formattedPrice}`;
+                    coinElement.style.color = coinPrice > prevCoinPrice ? 'green' : 'red';
+                    consecutiveNoChangeCount = 0;
+                } else {
+                    // Price has not changed, increment consecutiveNoChangeCount
+                    consecutiveNoChangeCount++;
+                    coinElement.style.color = 'black'; // Set color to black
                 }
                 
                 // Update the data attribute with the new price
@@ -52,6 +37,14 @@ function fetchCryptoPrices() {
         
         xhr.send();
     });
+    
+    // Check if there have been three consecutive no changes, if so, reset the color to black
+    if (consecutiveNoChangeCount >= 3) {
+        coins.forEach(coin => {
+            const coinElement = document.getElementById(`${coin}-price`);
+            coinElement.style.color = 'black';
+        });
+    }
 }
 
 // Fetch cryptocurrency prices from Binance initially
